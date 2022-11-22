@@ -20,8 +20,8 @@ accel_plot <- function(x) {
     stop("A `time` or a `freq` column must appear in the data.")
   }
   x |>
-    pivot_longer(-all_of(col)) |>
-    ggplot(aes_string(x = {{col}}, y = "value")) +
-      geom_line() +
-      facet_grid(name ~ .)
+    tidyr::pivot_longer(-tidyr::all_of(col)) |>
+    ggplot2::ggplot(ggplot2::aes_string(x = {{col}}, y = "value")) +
+      ggplot2::geom_line() +
+      ggplot2::facet_grid(name ~ .)
 }
