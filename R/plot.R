@@ -21,7 +21,7 @@ accel_plot <- function(x) {
   }
   x |>
     tidyr::pivot_longer(-tidyr::all_of(col)) |>
-    ggplot2::ggplot(ggplot2::aes_string(x = {{col}}, y = "value")) +
+    ggplot2::ggplot(ggplot2::aes(x = {{col}}, y = "value")) +
       ggplot2::geom_line() +
       ggplot2::facet_grid(name ~ .)
 }
