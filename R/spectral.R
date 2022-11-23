@@ -18,7 +18,7 @@
 #' @export
 spectral_signature <- function(x, take_log = FALSE, inverse = TRUE) {
 
-  ret <- purr::map_dfc(
+  ret <- purrr::map_dfc(
     x |> dplyr::select(rlang::.data$X, rlang::.data$Y, rlang::.data$Z),
     ~ fft(.x, inverse = inverse) |> Mod()
   )
