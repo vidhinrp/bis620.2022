@@ -17,15 +17,13 @@
 #' @aliases spec_sig
 #' @export
 spectral_signature <- function(x, take_log = FALSE, inverse = TRUE) {
-
   ret <- purrr::map_dfc(
-    x |> dplyr::select(rlang::.data$X, rlang::.data$Y, rlang::.data$Z),
+    x |> dplyr::select(.data$X, .data$Y, .data$Z),
     ~ fft(.x, inverse = inverse) |> Mod()
   )
   if (take_log) {
     ret <- ret |>
-      dpylr::mutate_at(dplyr::vars(rlang::.data$X, rlang::.data$Y,
-            rlang::.data$Z), log)
+      dplyr::mutate_at(dplyr::vars(.data$X, .data$Y, .data$Z), log)
   }
   ret <- ret[seq_len(ceiling(nrow(ret) / 2)), ]
   longest_period <-
