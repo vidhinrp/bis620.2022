@@ -6,3 +6,4 @@
 ^.Rhistory$
 ^.Rproj.user$
 ^\.github$
+^codecov\.yml$
