@@ -13,17 +13,19 @@
 #' X, Y, and Z channels.
 #' @importFrom purrr map_dfc
 #' @importFrom dplyr vars mutate_at select
+#' @importFrom rlang .data
 #' @aliases spec_sig
 #' @export
 spectral_signature <- function(x, take_log = FALSE, inverse = TRUE) {
 
-  ret <- map_dfc(
-    x |> select(X, Y, Z),
+  ret <- purr::map_dfc(
+    x |> dplyr::select(rlang::.data$X, rlang::.data$Y, rlang::.data$Z),
     ~ fft(.x, inverse = inverse) |> Mod()
   )
   if (take_log) {
     ret <- ret |>
-      mutate_at(vars(X, Y, Z), log)
+      dpylr::mutate_at(dplyr::vars(rlang::.data$X, rlang::.data$Y,
+            rlang::.data$Z), log)
   }
   ret <- ret[seq_len(ceiling(nrow(ret) / 2)), ]
   longest_period <-
